@@ -42,6 +42,10 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
       <div class="list-group" style="height: 120px;overflow-y: auto;border-style: solid;">
+        <div class="spinner" ng-if="$ctrl.loading1" style="margin-top:10px;">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
+        </div>
         <a ng-repeat="user in $ctrl.users" href="#" class="list-group-item" style="padding-top: 0px;padding-bottom: 0px;" ng-click="$ctrl.select(user)">{{ user.no_usuario }}</a>
       </div>
     </div>
@@ -69,8 +73,8 @@
     </center>
 
   </div>
-  <div class="col-xs-12" ng-if="$ctrl.loading">
-    <div class="spinner">
+  <div class="col-xs-12"  >
+    <div class="spinner" ng-if="$ctrl.loading">
       <div class="double-bounce1"></div>
       <div class="double-bounce2"></div>
     </div>

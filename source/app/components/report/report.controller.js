@@ -44,16 +44,16 @@ class reportController extends AngularClass {
     }
 
     $onInit() {
-        this.loading = true;
+        this.loading1 = true;
         this.ReportService.getConsultants()
         .then(({ data }) => {
             this.users = data;
             console.log(this.users);
-            this.loading = false;
+            this.loading1 = false;
         })
         .catch((err) => {
             console.log(err);
-            this.loading = false;
+            this.loading1 = false;
         });
     }
 
