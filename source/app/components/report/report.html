@@ -1,0 +1,135 @@
+<blue-navbar></blue-navbar>
+
+<div class="form-container" style="background-color: #f4efe5;min-height: 600px;">
+  <div class="container-box">
+    <div class="form-report row">
+      <center>
+        <h2 class="title">Web test for Agence</h2>
+      </center>
+      <div class="col-xs-12" >
+        <div class="row" style="width: 50%;margin: 0 auto;text-align: center;">
+          <div class="form-group col-lg-6 col-md-6 col-xs-6">
+            <div class="col-lg-12 no-side-padding">
+              <label for="input-sm ">Desde</label>
+            </div>
+            <!-- Date input -->
+            <div class="col-lg-8 " style="padding:0px">
+              <select class="form-control input-sm " ng-options="month.value as month.name for month in $ctrl.months" ng-init="$ctrl.month = $ctrl.months[0].value" ng-model="$ctrl.month" ng-required="true">
+              </select>
+            </div>
+            <div class="col-lg-4" style="padding:0px">
+              <input type="text" class="form-control input-sm" ng-model="$ctrl.year" show-button-bar="false" close-on-date-selection="true" uib-datepicker-popup="yyyy" datepicker-options="$ctrl.datepickerOptions" is-open="$ctrl.opened" ng-click="$ctrl.opened = !$ctrl.opened"
+              ng-required="true" close-text="Close">
+            </input>
+          </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-xs-6">
+          <div class="col-lg-12 no-side-padding">
+            <label for="input-sm ">Hasta</label>
+          </div>
+
+          <!-- Date input -->
+          <div class="col-lg-8 " style="padding:0px">
+            <select class="form-control input-sm " ng-options="month.value as month.name for month in $ctrl.months" ng-init="$ctrl.month1 = $ctrl.months[0].value" ng-model="$ctrl.month1" ng-required="true">
+            </select>
+          </div>
+          <div class="col-lg-4" style="padding:0px">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.year1" show-button-bar="false" close-on-date-selection="true" uib-datepicker-popup="yyyy" datepicker-options="$ctrl.datepickerOptions" is-open="$ctrl.opened1" ng-click="$ctrl.opened1 = !$ctrl.opened1"
+            ng-required="true" close-text="Close">
+          </input>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="list-group" style="height: 120px;overflow-y: auto;border-style: solid;">
+        <a ng-repeat="user in $ctrl.users" href="#" class="list-group-item" style="padding-top: 0px;padding-bottom: 0px;" ng-click="$ctrl.select(user)">{{ user.no_usuario }}</a>
+      </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2" style="margin-top: 10px;">
+      <button type="button" class="col-xs-12 btn btn-success" ng-click="$ctrl.passToDetails()" style="margin-top: 10px;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+      <button type="button" class="col-xs-12 btn btn-danger" ng-click="$ctrl.takeOffDetails()" style="margin-top: 10px;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
+    </div>
+    <div class="col-xs-12 col-sm-12 hidden-md hidden-lg" style="margin-bottom: 10px; text-align: center;">
+      <button type="button" class="btn btn-success" ng-click="$ctrl.passToDetails()" ><b><i class="fa fa-angle-double-down" aria-hidden="true"></i></b></button>
+      <button type="button" class="btn btn-danger" ng-click="$ctrl.takeOffDetails()"><b><i class="fa fa-angle-double-up" aria-hidden="true"></i></b></button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="list-group" style="height: 120px;overflow-y: auto;border-style: solid;">
+        <a ng-repeat="user in $ctrl.usersDetailList" href="#" class="list-group-item" style="padding-top: 0px;padding-bottom: 0px;" ng-click="$ctrl.selectFromDetail(user)">{{ user.no_usuario }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <center>
+    <p>
+      <button type="button" class="btn btn-agence" ng-click="$ctrl.changeDisplay('reportTable')" style="margin-top: 10px;"><i class="fa fa-file-text-o" aria-hidden="true"></i> Generar Relatório</button>
+      <button type="button" class="btn btn-agence" ng-click="$ctrl.changeDisplay('lineGraph')" style="margin-top: 10px;"><i class="fa fa-line-chart" aria-hidden="true"></i> Generar Gráfico</button>
+      <button type="button" class="btn btn-agence" ng-click="$ctrl.changeDisplay('pieGraph')" style="margin-top: 10px;"><i class="fa fa-pie-chart" aria-hidden="true"></i> Generar Pizza</button>
+    </p>
+    </center>
+
+  </div>
+  <div class="col-xs-12" ng-if="$ctrl.loading">
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+  </div>
+  <div style="width: 80%;margin: 0 auto;" ng-if="!$ctrl.loading && $ctrl.display.lineGraph">
+    <div class="col-xs-12" style="margin-top: 27px;border-style: groove;">
+      <canvas id="base" class="chart-bar"  chart-data="$ctrl.data" chart-labels="$ctrl.labels" chart-colors="$ctrl.colors" chart-dataset-override="$ctrl.datasetOverride" ></canvas>
+    </div>
+  </div>
+  <div style="width: 80%;margin: 0 auto;" ng-if="!$ctrl.loading && $ctrl.display.pieGraph">
+    <div class="col-xs-12" style="margin-top: 27px;">
+      <canvas id="pie" class="chart chart-pie" chart-data="$ctrl.data[0]" chart-labels="$ctrl.labels" chart-options="$ctrl.options"></canvas>
+    </div>
+  </div>
+  <div class="col-xs-12" ng-if="!$ctrl.loading && $ctrl.display.reportTable" style="margin-top:20px;" >
+    <table  ng-repeat="report in $ctrl.reports" class="table table-condensed table-responsive" style="width: 80%;margin: 0 auto;border-style: outset;background-color: white;margin-bottom: 20px;font-size: smaller;">
+      <thead style="background-color: beige;">
+        <tr style="border-style: outset;">
+          <th colspan="5">{{ report.name }} </th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <th>Periodo</th>
+          <th>Receita Líquida</th>
+          <th>Custo Fixo</th>
+          <th>Comissão</th>
+          <th>Lucro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="month in report.months">
+          <td>{{ $ctrl.dateFormate(month.month) }}</td>
+          <td>{{ month.income | currency:"R$ ":2 }}</td>
+          <td>{{ report.salary | currency:"R$ ":2 }}</td>
+          <td>{{ month.commission | currency:"R$ ":2 }}</td>
+          <td ng-class="{ red: $ctrl.monthLucro(month, report) < 0 }">{{ $ctrl.monthLucro(month, report) | currency:"R$ ":2 }}</td>
+        </tr>
+        <tr style="border-style: outset;background-color: beige;font-weight: 800;" ng-if="report.months.length > 0">
+          <td>SALDO</td>
+          <td>{{ report.totalIncome | currency:"R$ ":2 }}</td>
+          <td>{{ report.salary * report.months.length | currency:"R$ ":2 }}</td>
+          <td>{{ report.totalcommission | currency:"R$ ":2 }}</td>
+          <td ng-class="{ red: $ctrl.totalLucro(report) < 0 }">{{ $ctrl.totalLucro(report) | currency:"R$ ":2 }}</td>
+        </tr>
+        <tr ng-if="report.months.length < 1">
+          <td colspan="5">
+            <center>
+              No hay registros de este usuario para ese rango de fecha
+            </center>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+<!-- </div> -->
+</div>
+
+<footer-Landing></footer-Landing>

@@ -1,0 +1,12 @@
+import 'angular-animate';
+import 'angular-ui-router';
+import 'chart.js/dist/Chart.min.js';
+import 'angular-chart.js/dist/angular-chart.min.js';
+import 'angular-ui-bootstrap';
+import 'angular-bootstrap-calendar';
+import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
+import 'angular-sanitize/angular-sanitize.min.js';
+import '../assets/css/bootstrap-3.3.7.min.css';
+import '../assets/js/ui-bootstrap-2.5.0.min.js';
+import '../assets/css/font-awesome.min.css';
+import '../assets/fonts/Montserrat-Light.otf';
